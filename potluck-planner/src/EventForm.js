@@ -42,7 +42,7 @@ const EventForm = () => {
         location: formData.location,
         items: formData.items,
       }
-      axios.post(`http://localhost:5000/api/events`, newEvent)
+      axios.post(`https://potluck-planner-3-back-end.herokuapp.com/api/events`, newEvent)
         .then(res => setEvents([...events, res.data]))
         //initializing form data so slate is clean to add a new event after posting
         setFormData(initialFormData)
