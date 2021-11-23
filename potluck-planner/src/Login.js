@@ -1,36 +1,42 @@
-import React,{useState} from 'react'
+import React, { useState, } from 'react'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 const Login = () => {
 	const [form, setForm] = useState({
-		name: '',
+		username: '',
 		password: '',
 	});
 
 	const handleChange = (e) => {
 		setForm({
-			[e.target.name]: e.target.value
-		});
+			...form,
+			[e.target.name]:e.target.value 
+		})
 	}
 
-	const handlesubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+		axios
+			.post('https://potluck-planner-3-back-end.herokuapp.com/api/users/login', form)
+			.then(res => { console.log(res) })
+		.catch(err =>{console.log(err)})
 	}
 	return (
 		<div>
 			Log in
-			<form>
-				
-				<label htmlFor="name">
+			<form onSubmit={handleSubmit}>
+				<label htmlFor="username">
 					<input
-						name="name"
-						value={form.name}
+						name="username"
+						value={form.username}
 						placeholder="enter your name" 
 						onChange={handleChange} />
 				</label>
 				<label htmlFor="password">
 					<input
 						name="password"
+						type="password"
 						value={form.password}
 						placeholder="******" 
 						onChange={handleChange} />
